@@ -8,7 +8,7 @@ import (
 )
 
 func TestRead(t *testing.T) {
-	format := "$remote_addr [$time_local] \"$request\""
+	format := NewParser("$remote_addr [$time_local] \"$request\"")
 	file := strings.NewReader(`89.234.89.123 [08/Nov/2013:13:39:18 +0000] "GET /api/foo/bar HTTP/1.1"`)
 	reader := NewReader(file, format)
 	assert.Nil(t, reader.entries)
@@ -31,7 +31,7 @@ func TestRead(t *testing.T) {
 
 func TestInvalidLineFormat(t *testing.T) {
 	t.Skip("Read method does not return errors anymore, because of asynchronios algorithm")
-	format := "$remote_addr [$time_local] \"$request\""
+	format := NewParser("$remote_addr [$time_local] \"$request\"")
 	file := strings.NewReader(`89.234.89.123 - - [08/Nov/2013:13:39:18 +0000] "GET /api/foo/bar HTTP/1.1"`)
 	reader := NewReader(file, format)
 
